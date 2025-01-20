@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: csi-vcd-node-sa
-  namespace: kube-system
+  namespace: {{ .Release.Namespace }}
 
 ---
 kind: ClusterRole
@@ -23,7 +23,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: csi-vcd-node-sa
-    namespace: kube-system
+    namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
   name: csi-nodeplugin-role
@@ -34,7 +34,7 @@ kind: DaemonSet
 apiVersion: apps/v1
 metadata:
   name: csi-vcd-nodeplugin
-  namespace: kube-system
+  namespace: {{ .Release.Namespace }}
 spec:
   selector:
     matchLabels:
@@ -92,7 +92,7 @@ spec:
             capabilities:
               add: ["SYS_ADMIN"]
             allowPrivilegeEscalation: true
-          image: {{ .Values.csiImage.repository }}:{{ .Values.csiImage.tag }}
+          image: "{{ .Values.csiImage.repository }}:{{ .Values.csiImage.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.csiImage.pullPolicy }}
           command :
             - /opt/vcloud/bin/cloud-director-named-disk-csi-driver
@@ -157,7 +157,7 @@ spec:
             name: vcloud-csi-configmap
         - name: vcloud-basic-auth-volume
           secret:
-            secretName: vcloud-basic-auth
+            secretName: {{ .Values.authentication.credentialsSecret.name }}
         - name: vcloud-capvcd-zones
           configMap:
             name: vcloud-capvcd-zones
