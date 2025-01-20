@@ -5,7 +5,7 @@ kind: Secret
 metadata:
   name: {{ .Values.authentication.credentialsSecret.name | default "default-secret-name" | quote }}
   labels:
-    component: {{ .Chart.Name }}-csi-driver
+    component: {{ .Chart.Name }}
   namespace: {{ .Release.Namespace }}
 data:
   username: {{ .Values.authentication.username | b64enc | quote }}
