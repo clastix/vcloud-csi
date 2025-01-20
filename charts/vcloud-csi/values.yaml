@@ -12,11 +12,11 @@ storageClasses:
     filesystem: "ext4"
 
 authentication:
+  credentialsSecret:
+    name: vcloud-basic-auth
+    generate: false
   username: ""
   password: ""
-  credentialsSecret:
-    name: "vcloud-basic-auth"
-    generate: false
 
 vcd:
   host: ""
