@@ -7,4 +7,4 @@ metadata:
 data:
   username: {{ .Values.authentication.username | b64enc }}
   password: {{ .Values.authentication.password | b64enc }}
-  refreshToken: {{ .Values.authentication.refreshToken | b64enc }}
+  refreshToken: ""

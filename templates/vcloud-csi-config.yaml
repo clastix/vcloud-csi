@@ -7,9 +7,8 @@ metadata:
 data:
   vcloud-csi-config.yaml: |
     vcd:
-      host: {{ .Values.host }}
-      org: {{ .Values.org }}
-      vdc: {{ .Values.vdc }}
-      vAppName: {{ .Values.vAppName }}
-    clusterid: {{ .Values.clusterid }}
+      host: {{ .Values.vcd.host }}
+      org: {{ .Values.vcd.org }}
+      vdc: {{ .Values.vcd.vdc }}
+      vAppName: {{ .Values.vcd.vAppName }}
 immutable: true

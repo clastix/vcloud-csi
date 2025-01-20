@@ -18,8 +18,6 @@ storageClasses:
 authentication:
   username: ""
   password: ""
-  # Refresh token can be omitted when using username and password
-  refreshToken: ""
 
 vcd:
   host: ""
@@ -27,6 +25,3 @@ vcd:
   vdc: ""
   zone: ""
   vAppName: ""
-  # If you're trying to install this CSI Driver to a k8s cluster installed manually, via kubespray, etc., 
-  # please set clusterid to NO_RDE_<some-uuid>
-  clusterid: ""
