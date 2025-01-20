@@ -1,0 +1,19 @@
+vCloud CSI installed.
+
+{{- if gt (len .Values.storageClasses) 0 -}}
+1. pvc.yaml example:
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pv-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi
+  {{- with (index .Values.storageClasses 0) }}
+  storageClassName: "{{ .name }}"
+  {{- end }}
+{{- end }}
