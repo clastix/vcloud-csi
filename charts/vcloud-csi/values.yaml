@@ -14,7 +14,7 @@ storageClasses:
 authentication:
   credentialsSecret:
     name: vcloud-basic-auth
-    generate: false
+    generate: true
   username: ""
   password: ""
 
