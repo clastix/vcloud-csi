@@ -19,6 +19,9 @@ authentication:
   password: ""
 
 vcd:
+  configMap:
+    name: vcloud-csi-config
+    generate: true
   host: ""
   org: ""
   vdc: ""
