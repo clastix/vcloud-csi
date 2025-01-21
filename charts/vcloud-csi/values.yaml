@@ -1,7 +1,8 @@
 csiImage:
   repository: projects.registry.vmware.com/vmware-cloud-director/cloud-director-named-disk-csi-driver
   pullPolicy: IfNotPresent
-  tag: "1.6.0"
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
 
 storageClasses:
   - name: vcd-named-disk-delete
@@ -9,13 +10,11 @@ storageClasses:
     reclaimPolicy: Delete
     storageProfile: ""
     filesystem: "ext4"
-  - name: vcd-named-disk-retain
-    default: true
-    reclaimPolicy: Retain
-    storageProfile: ""
-    filesystem: "ext4"
 
 authentication:
+  credentialsSecret:
+    name: vcloud-basic-auth
+    generate: true
   username: ""
   password: ""
 

@@ -1,0 +1,13 @@
+{{- if .Values.authentication.credentialsSecret.generate -}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Values.authentication.credentialsSecret.name | default "default-secret-name" | quote }}
+  labels:
+    component: {{ .Chart.Name }}
+  namespace: {{ .Release.Namespace }}
+data:
+  username: {{ .Values.authentication.username | b64enc | quote }}
+  password: {{ .Values.authentication.password | b64enc | quote }}
+  refreshToken: ""
+{{- end -}}

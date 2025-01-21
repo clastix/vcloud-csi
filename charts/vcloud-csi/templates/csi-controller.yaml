@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: csi-vcd-controller-sa
-  namespace: kube-system
+  namespace: {{ .Release.Namespace }}
 
 ---
 # external attacher
@@ -36,7 +36,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: csi-vcd-controller-sa
-    namespace: kube-system
+    namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
   name: csi-attacher-role
@@ -82,7 +82,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: csi-vcd-controller-sa
-    namespace: kube-system
+    namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
   name: csi-provisioner-role
@@ -119,7 +119,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: csi-vcd-controller-sa
-    namespace: kube-system
+    namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
   name: csi-resizer-role
@@ -130,7 +130,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: csi-vcd-controllerplugin
-  namespace: kube-system
+  namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   selector:
@@ -190,7 +190,7 @@ spec:
             capabilities:
               add: ["SYS_ADMIN"]
             allowPrivilegeEscalation: true
-          image: {{ .Values.csiImage.repository }}:{{ .Values.csiImage.tag }}
+          image: "{{ .Values.csiImage.repository }}:{{ .Values.csiImage.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.csiImage.pullPolicy }}
           command:
             - /opt/vcloud/bin/cloud-director-named-disk-csi-driver
@@ -250,7 +250,7 @@ spec:
             name: vcloud-csi-configmap
         - name: vcloud-basic-auth-volume
           secret:
-            secretName: vcloud-basic-auth
+            secretName: {{ .Values.authentication.credentialsSecret.name }}
         - name: vcloud-capvcd-zones
           configMap:
             name: vcloud-capvcd-zones
