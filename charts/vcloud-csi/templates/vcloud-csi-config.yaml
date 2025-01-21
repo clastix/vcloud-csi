@@ -1,4 +1,4 @@
----
+{{- if .Values.vcd.configMap.generate -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -12,3 +12,4 @@ data:
       vdc: {{ .Values.vcd.vdc }}
       vAppName: {{ .Values.vcd.vAppName }}
 immutable: true
+{{- end -}}
